@@ -1,0 +1,142 @@
+let rgbEnabled = true;
+let running = false;
+let demoInterval = null;
+let messageCount = 0;
+
+const rgbToggle = document.getElementById("rgbToggle");
+const app = document.querySelector(".app");
+const speed = document.getElementById("speed");
+const speedValue = document.getElementById("speedValue");
+const messageList = document.getElementById("messageList");
+const statusText = document.getElementById("status");
+
+// RGB ON / OFF
+rgbToggle.addEventListener("click", () => {
+  rgbEnabled = !rgbEnabled;
+
+  rgbToggle.textContent = rgbEnabled ? "RGB ON" : "RGB OFF";
+  app.classList.toggle("rgb-off", !rgbEnabled);
+});
+
+// Customizer previews
+function preview(type) {
+  const fields = {
+    vehicle: ["vehicleName", "vehicleResult"],
+    phone: ["phoneText", "phoneResult"],
+    bio: ["bioText", "bioResult"],
+    name: ["nameText", "nameResult"]
+  };
+
+  const [inputId, resultId] = fields[type];
+  const value = document.getElementById(inputId).value.trim();
+
+  if (!value) {
+    alert("Please enter something first!");
+    return;
+  }
+
+  const result = document.getElementById(resultId);
+  result.textContent = value;
+  result.style.color = rgbEnabled ? "#e879f9" : "white";
+}
+
+// Preview speed
+speed.addEventListener("input", () => {
+  speedValue.textContent = "Speed: " + speed.value;
+});
+
+// Local message preview only
+function addMessage() {
+  const text = document.getElementById("spamText").value.trim();
+
+  if (!text) {
+    statusText.textContent = "Status: Enter a message first";
+    stopDemo();
+    return;
+  }
+
+  messageCount++;
+
+  const item = document.createElement("div");
+  item.className = "message-item";
+  item.textContent = messageCount + ". " + text;
+
+  messageList.prepend(item);
+
+  if (messageList.children.length > 30) {
+    messageList.lastElementChild.remove();
+  }
+}
+
+// Start demo
+document.getElementById("startBtn").addEventListener("click", () => {
+  if (running) return;
+
+  const text = document.getElementById("spamText").value.trim();
+
+  if (!text) {
+    alert("Write your message first!");
+    return;
+  }
+
+  running = true;
+  statusText.textContent = "Status: Running preview";
+
+  const delay = 1200 / Number(speed.value);
+
+  addMessage();
+
+  demoInterval = setInterval(() => {
+    if (!running) return;
+    addMessage();
+  }, delay);
+});
+
+// Stop demo
+function stopDemo() {
+  running = false;
+  clearInterval(demoInterval);
+  demoInterval = null;
+  statusText.textContent = "Status: Stopped";
+}
+
+document.getElementById("stopBtn").addEventListener("click", stopDemo);
+
+// Add to list
+document.getElementById("addBtn").addEventListener("click", () => {
+  const input = document.getElementById("listInput");
+  const value = input.value.trim();
+
+  if (!value) {
+    alert("Enter something to add!");
+    return;
+  }
+
+  const li = document.createElement("li");
+  const text = document.createElement("span");
+  text.textContent = value;
+
+  const del = document.createElement("button");
+  del.textContent = "DELETE";
+  del.className = "deleteBtn";
+
+  del.addEventListener("click", () => {
+    li.remove();
+  });
+
+  li.append(text, del);
+  document.getElementById("myList").appendChild(li);
+
+  input.value = "";
+});
+
+// Enter key to add list item
+document.getElementById("listInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    document.getElementById("addBtn").click();
+  }
+});
+
+// Initial setup
+app.classList.remove("rgb-off");
+statusText.textContent = "Status: Stopped";

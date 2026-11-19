@@ -1,0 +1,70 @@
+<div class="app">
+  <header>
+    <h1>🐰 BUNNY HUB</h1>
+    <p>RGB CUSTOMIZER • LIFE TOGETHER</p>
+    <span class="version">VERSION 10.0</span>
+  </header>
+
+  <section class="panel">
+    <h2>🌈 RGB SETTINGS</h2>
+    <button id="rgbToggle">RGB ON</button>
+    <div class="color-preview" id="colorPreview"></div>
+  </section>
+
+  <section class="panel">
+    <h2>🚗 RGB VEHICLE</h2>
+    <input id="vehicleName" placeholder="Vehicle name">
+    <button onclick="preview('vehicle')">Preview Vehicle</button>
+    <p id="vehicleResult">No vehicle selected</p>
+  </section>
+
+  <section class="panel">
+    <h2>📱 PHONE CUSTOMIZER</h2>
+    <input id="phoneText" placeholder="Enter phone text">
+    <button onclick="preview('phone')">Preview Phone</button>
+    <p id="phoneResult">Phone preview</p>
+  </section>
+
+  <section class="panel">
+    <h2>✨ RGB BIO</h2>
+    <textarea id="bioText" placeholder="Write your bio..."></textarea>
+    <button onclick="preview('bio')">Preview Bio</button>
+    <p id="bioResult">Your bio preview</p>
+  </section>
+
+  <section class="panel">
+    <h2>🎨 RGB NAME</h2>
+    <input id="nameText" placeholder="Enter your name">
+    <button onclick="preview('name')">Preview Name</button>
+    <p id="nameResult">Your name</p>
+  </section>
+
+  <section class="panel">
+    <h2>💬 MESSAGE DEMO</h2>
+    <textarea id="spamText" placeholder="Write your custom message..."></textarea>
+
+    <label>Preview speed</label>
+    <input type="range" id="speed" min="1" max="5" value="2">
+    <p id="speedValue">Speed: 2</p>
+
+    <div class="buttons">
+      <button id="startBtn">START</button>
+      <button id="stopBtn">STOP</button>
+    </div>
+
+    <p id="status">Status: Stopped</p>
+    <div id="messageList" class="message-list"></div>
+  </section>
+
+  <section class="panel">
+    <h2>📋 MY LIST</h2>
+    <input id="listInput" placeholder="Add something to your list">
+    <button id="addBtn">ADD TO LIST</button>
+    <ul id="myList"></ul>
+  </section>
+
+  <footer>
+    <p>🐰 BUNNY HUB © 2026</p>
+    <p>Made for customization previews</p>
+  </footer>
+</div>
